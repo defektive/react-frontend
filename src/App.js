@@ -1,8 +1,14 @@
 var React = require("react/lib/reactWithAddons");
 var Router = require('react-router');
 var { Route, RouteHandler, Link, DefaultRoute } = Router;
+var axios = require('axios');
+
 
 import Config from "./app/config"
+import PageTitle from "./app/helpers/PageTitle";
+import auth from "./app/stores/Auth";
+import i18n from "./app/helpers/i18n";
+import requireAuth from "./app/helpers/RequireAuth";
 
 import Home from "./app/pages/Home";
 import Dashboard from "./app/pages/Dashboard";
@@ -10,10 +16,17 @@ import Login from "./app/pages/Login";
 import Logout from "./app/pages/Logout";
 import SignUp from "./app/pages/SignUp";
 
-import PageTitle from "./app/helpers/PageTitle";
-import auth from "./app/stores/Auth";
-import i18n from "./app/helpers/i18n";
-import requireAuth from "./app/helpers/RequireAuth";
+axios.interceptors.request.use(
+  function (config) {
+    if(auth.isLoggedIn()){
+      config.headers = {
+        Authorization: auth.getAccessToken()
+      }
+    }
+    return config;
+  }, function (error) {
+    return Promise.reject(error);
+});
 
 class App extends React.Component {
   constructor () {
@@ -30,6 +43,7 @@ class App extends React.Component {
   }
 
   handleLoggedInChange (eventData){
+    console.log("LOGIN CHANGE", eventData)
     var { router } = this.context;
     this.setState({
       loggedIn: eventData.value
@@ -95,6 +109,10 @@ var routes = (
     <Route name="dashboard" handler={Dashboard}/>
   </Route>
 );
+
+App.contextTypes = {
+  router: React.PropTypes.func
+};
 
 Router.run(routes, function (Handler) {
   React.render(<Handler/>, document.getElementById('app-container'));

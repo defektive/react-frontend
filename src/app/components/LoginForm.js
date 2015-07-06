@@ -1,8 +1,6 @@
 var React = require("react/lib/reactWithAddons");
-var axios = require('axios');
 
 import auth from "../stores/Auth";
-
 class LoginForm extends React.Component {
   constructor () {
     super()

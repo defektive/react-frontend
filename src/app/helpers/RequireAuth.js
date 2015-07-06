@@ -5,7 +5,7 @@ import auth from "../stores/Auth";
 export default (Component) => {
   return class Authenticated extends React.Component {
     static willTransitionTo(transition) {
-      if (!auth.loggedIn()) {
+      if (!auth.isLoggedIn()) {
         transition.redirect('/login', {}, {'nextPath' : transition.path});
       }
     }

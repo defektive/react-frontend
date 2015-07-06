@@ -5,7 +5,7 @@ import auth from "../stores/Auth";
 
 export default requireAuth(class extends React.Component {
   render () {
-    var token = auth.getToken();
+    var token = auth.getAccessToken();
     return (
       <div>
         <h1>Dashboard</h1>

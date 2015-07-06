@@ -35,19 +35,9 @@ Auth.prototype.signUp = function (email, password, passwordConfirm) {
       password_confirmation: passwordConfirm
     }
   })
-  .then(this.logout.bind(this))
+  .then(login.bind(this))
   .catch(function (response) {
-    this.handleErrorResponse(response)
-  });
-}
-
-Auth.prototype.purge = function () {
-  axios.delete('/v1/purge')
-  .then(function (res){
-    console.log("prge", this)
-    this.emitEvent('purge', [res])
-  }.bind(this))
-  .catch(function (response) {
+    this.logout();
     this.handleErrorResponse(response)
   });
 }
@@ -76,6 +66,4 @@ Auth.prototype.handleErrorResponse = function (response) {
 }
 
 var auth = new Auth
-auth.logout();
-
 export default auth

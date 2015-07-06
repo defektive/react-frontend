@@ -33,6 +33,7 @@
   },
   "scripts": {
     "build": "node node_modules/webpack/bin/webpack.js --colors --content-base=public",
+    "build-watch": "fswatch src | xargs -n1 -I{} sh -c 'reset; npm run build'",
     "dev": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --colors --content-base=public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

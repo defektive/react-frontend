@@ -1,6 +1,6 @@
 var React = require("react/lib/reactWithAddons");
-var axios = require('axios');
 
+import auth from "../stores/Auth";
 class SignUpForm extends React.Component {
 
   constructor () {
@@ -16,6 +16,8 @@ class SignUpForm extends React.Component {
     var email = this.refs.email.getDOMNode().value;
     var password = this.refs.password.getDOMNode().value;
     var passwordConfirm = this.refs.passwordConfirm.getDOMNode().value;
+    var { router } = this.context;
+    router.getCurrentQuery().nextPath = "/dashboard"
 
     auth.signUp(email, password, passwordConfirm)
 
