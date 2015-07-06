@@ -13,17 +13,8 @@ module.exports = {
 
   module: {
     loaders: [
-
-      { test: /\.jx$/, loader: 'jsx-loader?harmony'},
-      { test: /\.js$/, loader: '6to5-loader'},
-
-      // the url-loader uses DataUrls.
-      // the file-loader emits files.
-      { test: /\.woff$/,   loader: "url-loader?limit=10000&minetype=application/font-woff" },
-      { test: /\.ttf$/,    loader: "file-loader" },
-      { test: /\.eot$/,    loader: "file-loader" },
-      { test: /\.svg$/,    loader: "file-loader" },
-
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'},
+      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' },
       {
         test: /\.less$/,
         loader: "style-loader!css-loader!less-loader"
