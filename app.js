@@ -3189,7 +3189,7 @@
 	  // Begin config
 
 	  Config.APP_NAME = "I am an app name";
-	  Config.BASE_API_URL = "http://127.0.0.1:3000/v1/";
+	  Config.BASE_API_URL = "https://react-rest-sample.herokuapp.com/v1/";
 
 	  // End config
 	  Object.freeze(Config);
